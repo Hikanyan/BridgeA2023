@@ -16,11 +16,10 @@ namespace Hikanyan.Core
     //
     public class GameManager : SingletonBehaviour<GameManager>
     {
-        
-
         void GameStart()
         {
             GameTimer.Instance.TimerStart();
+            //CRIAudioManager.Instance.
         }
         void GameEnd()
         {

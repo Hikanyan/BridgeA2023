@@ -1,0 +1,29 @@
+using Hikanyan.Core;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.UI;
+namespace Hikanyan.Runner
+{
+    /// <summary>
+    /// 叩いたときのSEの設定
+    /// 叩いたときのUI
+    /// スコア加算
+    /// 叩いたときの処理
+    /// </summary>
+    public class NotesManager : SingletonBehaviour<NotesManager>
+    {
+        [SerializeField, Tooltip("パーフェクトのときの効果音(CueSheetNumber)")]
+        int _perfectSoundNumber;
+        [SerializeField, Tooltip("グッドのときの効果音(CueSheetNumber)")]
+        int _goodSoundNumber;
+        [SerializeField, Tooltip("ミスのときの効果音(CueSheetNumber)")]
+        int _missSoundNumber;
+
+        [SerializeField]
+        Text _judgeText;
+
+        public List<Notes>[] BlockNotes = new List<Notes>[4];
+    }
+}

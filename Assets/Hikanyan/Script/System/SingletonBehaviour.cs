@@ -36,7 +36,9 @@ namespace Hikanyan.Core
         }
 
 
-        //継承先でAwakeが必要な場合はこれを呼ぶ
+        /// <summary>
+        /// 継承先でAwakeが必要な場合はこれを呼ぶ
+        /// </summary>
         protected virtual void OnAwake() { }
 
         protected void ChackIns()
