@@ -8,8 +8,6 @@ namespace Hikanyan.Core
     public class SingletonBehaviour<T> : MonoBehaviour where T : MonoBehaviour
     {
         protected static T _instance;
-
-
         public static T Instance
         {
             get
@@ -24,7 +22,6 @@ namespace Hikanyan.Core
                         Debug.LogError($"{t}をアタッチしているGameObjectがありません");
                     }
                 }
-
                 return _instance;
             }
         }

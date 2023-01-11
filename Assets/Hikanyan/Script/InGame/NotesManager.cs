@@ -8,6 +8,7 @@ namespace Hikanyan.Runner
 {
     /// <summary>
     /// 叩いたときのSEの設定
+    /// パーティクル
     /// 叩いたときのUI
     /// スコア加算
     /// 叩いたときの処理
@@ -20,10 +21,18 @@ namespace Hikanyan.Runner
         int _goodSoundNumber;
         [SerializeField, Tooltip("ミスのときの効果音(CueSheetNumber)")]
         int _missSoundNumber;
+        [SerializeField, Tooltip("パーフェクトのときのパーティクル")]
+        int _perfectParticle;
+        [SerializeField, Tooltip("グッドのときのパーティクル")]
+        int _goodParticle;
+        [SerializeField, Tooltip("ミスのときのパーティクル")]
+        int _missParticle;
 
         [SerializeField]
         Text _judgeText;
 
-        public List<Notes>[] BlockNotes = new List<Notes>[4];
+        public List<Notes>[] BlockNotes = new List<Notes>[3];
+
+
     }
 }
