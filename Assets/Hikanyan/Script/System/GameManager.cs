@@ -16,6 +16,7 @@ namespace Hikanyan.Core
     //
     public class GameManager : SingletonBehaviour<GameManager>
     {
+        [SerializeField] int _Score;
         void GameStart()
         {
             GameTimer.Instance.TimerStart();
