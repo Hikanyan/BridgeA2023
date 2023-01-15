@@ -156,8 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ef2e9d9c308de42972e1260b7dcfe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _streamingAssetsPathACF: 
-  _cueSheetBGM: 
+  _streamingAssetsPathACF: BridgeA2023
+  _cueSheetBGM: CueSheet_BGM
   _cueSheetSE: 
   _playVolumeBGM: 0
   _playVolumeSE: 0
