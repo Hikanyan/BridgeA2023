@@ -6,6 +6,7 @@ using UnityEngine;
 namespace Hikanyan.Gameplay
 {
     /// <summary>
+    /// [TODO]
     /// 全体のデータ
     /// </summary>
     [Serializable]
