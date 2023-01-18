@@ -10,7 +10,8 @@ namespace Hikanyan.JudgeData
         Good,
         Bad,
         Miss,
-        Auto
+        Auto,
+        None
     }
     public enum ResultRank
     {
