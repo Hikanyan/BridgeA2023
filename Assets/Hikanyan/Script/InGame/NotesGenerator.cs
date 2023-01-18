@@ -1,3 +1,4 @@
+using Hikanyan.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -58,22 +59,31 @@ namespace Hikanyan.Gameplay
         /// <summary>
         /// タップノーツのプレハブを入れる
         /// </summary>
-        [SerializeField]GameObject _tapNotesObject;
+        [SerializeField] GameObject _tapNotesObject;
         /// <summary>
         /// ノーツのスピード
         /// </summary>
-        [SerializeField]float _notesSpeed;
+        [SerializeField] float _notesSpeed;
         /// <summary>
         /// ノーツの表示される奥行き(両サイド)
         /// </summary>
         [SerializeField] float _blockHeight;
 
+
+        private NotesData _inputJson;
+        //コレクションのインスタンス化と同時に要素を追加
+        private List<List<Notes>> _instanceNotesList = new List<List<Notes>>() { new(), new(), new(), new() };
+
         private void Start()
         {
             //プレイヤー設定をロード
-            //
         }
        　void StartLoad()
+        {
+
+        }
+
+        void GetNotesData()
         {
 
         }
