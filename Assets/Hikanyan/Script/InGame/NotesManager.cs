@@ -14,22 +14,22 @@ namespace Hikanyan.Runner
     /// 叩いたときのUI
     /// スコア加算
     /// 叩いたときの処理
+    /// ホールドは未実装
     /// </summary>
     public class NotesManager : SingletonBehaviour<NotesManager>
     {
         [SerializeField, Tooltip("パーフェクトのときの効果音(CueSheetNumber)")]
-        int _perfectSoundNumber;
+        public int _perfectSoundNumber;
+        [SerializeField, Tooltip("グレートのときの効果音(CueSheetNumber)")]
+        public int _greatSoundNumber;
         [SerializeField, Tooltip("グッドのときの効果音(CueSheetNumber)")]
-        int _goodSoundNumber;
+        public int _goodSoundNumber;
         [SerializeField, Tooltip("ミスのときの効果音(CueSheetNumber)")]
-        int _missSoundNumber;
-
-        [SerializeField, Tooltip("パーフェクトのときのパーティクル")]
-        int _perfectParticle;
-        [SerializeField, Tooltip("グッドのときのパーティクル")]
-        int _goodParticle;
-        [SerializeField, Tooltip("ミスのときのパーティクル")]
-        int _missParticle;
+        public int _missSoundNumber;
+        [SerializeField, Tooltip("何もないときのときの効果音(CueSheetNumber)")]
+        public int _noneTapSoundNumber;
+        //[SerializeField, Tooltip("パーフェクトのときの効果音(CueSheetNumber)")]
+        //public int _holdSoundNumber;
 
         [SerializeField]
         Text _judgeText;
@@ -47,7 +47,7 @@ namespace Hikanyan.Runner
                     notesNum++;
                 }
             }
-            ScoreManager.Instance
+            ScoreManager.Instance.NotesNum = notesNum;
         }
     }
 }
