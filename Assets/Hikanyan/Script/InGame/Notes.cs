@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,11 +8,20 @@ namespace Hikanyan.Core
     /// <summary>
     /// [TODO]
     /// ノーツの動き
+    /// ノーツのタイプ
+    /// ノーツのレーン
     /// </summary>
+    public enum NotesType
+    {
+        NormalNotes,
+        HeelNotes,
+        DamageNotes,
+    } 
+
     public class Notes : MonoBehaviour
     {
-        public bool Visible => _visible;
-        private bool _visible;
+        public bool Visible;
+        public NotesType NotesType; 
 
         /// <summary>
         /// 見えてるノーツを表示する
@@ -23,12 +33,13 @@ namespace Hikanyan.Core
             if (visible)
             {
                 gameObject.SetActive(true);
-                _visible = true;
+                Visible = true;
             }
             else
             {
                 gameObject.SetActive(false);
-                _visible = false;
+                Visible = false;
+                transform.position = new(0, 0, -10);
             }
         }
         /// <summary>
@@ -37,7 +48,7 @@ namespace Hikanyan.Core
         /// <param name="pos">x座標</param>
         public void SetNotesPos(float pos)
         {
-            transform.position = new Vector3(pos, 0, 0);
+            transform.position = new Vector3(transform.position.x, transform.position.y, pos);
         }
     }
 }
