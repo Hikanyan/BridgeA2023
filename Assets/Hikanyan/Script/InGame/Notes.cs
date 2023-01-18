@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Hikanyan.Core
 {
     /// <summary>
+    /// [TODO]
     /// ƒm[ƒc‚Ì“®‚«
     /// </summary>
     public class Notes : MonoBehaviour
