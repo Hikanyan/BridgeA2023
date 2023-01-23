@@ -16,11 +16,16 @@ namespace Hikanyan.Core
         NormalNotes,
         HeelNotes,
         DamageNotes,
+        HoldNotes
     } 
 
     public class Notes : MonoBehaviour
     {
+        public float Time = 0;
+        public float EndTime = 0.0f;
+        public int Block = 0;
         public bool Visible;
+        public bool Disable;
         public NotesType NotesType; 
 
         /// <summary>
