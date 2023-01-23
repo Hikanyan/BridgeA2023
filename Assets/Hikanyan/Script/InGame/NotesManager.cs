@@ -1,4 +1,5 @@
 using Hikanyan.Core;
+using Hikanyan.JudgeData;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -33,6 +34,8 @@ namespace Hikanyan.Runner
 
         [SerializeField]
         Text _judgeText;
+        bool _autoMode;
+        float _judgeOffset = 0.0f;
 
         public List<Notes>[] BlockNotes = new List<Notes>[3];
 
@@ -48,6 +51,77 @@ namespace Hikanyan.Runner
                 }
             }
             ScoreManager.Instance.NotesNum = notesNum;
+        }
+        /// <summary>
+        /// ノーツの当たり判定を行う。
+        /// プレイヤーから情報を受け取り、
+        /// インターフェイスで実行する
+        /// </summary>
+        /// <param name="notes"></param>
+        /// <param name="release"></param>
+        public void NotesJudge(Notes notes, bool release)
+        {
+            float judgetime = GameTimer.Instance.RealTime - notes.Time;
+
+            if (release && notes.NotesType == NotesType.NormalNotes)
+            {
+                judgetime = GameTimer.Instance.RealTime - notes.EndTime;
+            }
+
+            //+で早く叩いても反応, -で遅く叩いても反応
+            judgetime += _judgeOffset;
+
+
+            if (JudgeTime.JudgeNotes(judgetime) != Judges.None)
+            {
+                //ダメージノーツを押さなかったら
+                if (notes.NotesType != NotesType.DamageNotes)
+                {
+                    ApplyJudge(JudgeTime.JudgeNotes(judgetime), notes.Block);
+                }
+
+                //シングルノーツを押したとき
+                if ((notes.NotesType == NotesType.NormalNotes) && !release)
+                {
+
+                    notes.SetVisible(false);
+                    NotesManager.Instance.BlockNotes[notes.Block].RemoveAt(0);
+                }
+                //ダメージノーツを押したとき
+                if (notes.NotesType == NotesType.DamageNotes && !release)
+                {
+                    ApplyJudge(Judges.Miss, notes.Block);
+                    NotesManager.Instance.BlockNotes[notes.Block].RemoveAt(0);
+                    notes.SetVisible(false);
+                }
+                //ホールドの最初押したとき
+                if (notes.NotesType == NotesType.HoldNotes && !release)
+                {
+                   
+                }
+            }
+            else
+            {
+                //空タップ
+                CRIAudioManager.Instance.CRIPlaySE(_noneTapSoundNumber,false);
+            }
+        }
+
+        public void BlockPress(int block)
+        {
+            if (BlockNotes[block].Count < 1) return;
+            if (BlockNotes[block][0].NotesType == NotesType.NormalNotes) return;
+            NotesJudge(BlockNotes[block][0], false);
+
+        }
+        public void ApplyJudge(Judges judge, int block, bool showParticle = true)
+        {
+            ScoreManager.Instance.AddScore(judge);
+            if(Judges.PurePerfect == judge)
+            {
+                ScoreManager.Instance.Combo(true);
+                ScoreManager.Instance.JudgeScores;
+            }
         }
     }
 }
