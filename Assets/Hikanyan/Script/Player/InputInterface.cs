@@ -4,6 +4,5 @@
 interface InputInterface
 {
     public void Press();
-
-    public void AltPress();
+    }
 }
