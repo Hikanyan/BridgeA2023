@@ -10,12 +10,12 @@ namespace Hikanyan.Gameplay
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            Player.Instance.BlockPress(_blocknum);
+            InputManager.Instance.BlockPress(_blocknum);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            Player.Instance.BlockRelease(_blocknum);
+            InputManager.Instance.BlockRelease(_blocknum);
         }
     }
 
