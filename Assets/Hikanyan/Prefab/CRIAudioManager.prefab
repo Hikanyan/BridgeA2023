@@ -158,9 +158,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _streamingAssetsPathACF: BridgeA2023
   _cueSheetBGM: CueSheet_BGM
-  _cueSheetSE: 
-  _playVolumeBGM: 0
-  _playVolumeSE: 0
+  _cueSheetSE: CueSheet_SE
+  _playVolumeBGM: 1
+  _playVolumeSE: 1
 --- !u!1 &7565756458049725634
 GameObject:
   m_ObjectHideFlags: 0
