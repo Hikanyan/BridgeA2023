@@ -9,7 +9,7 @@ namespace Hikanyan.Gameplay
     {
         [SerializeField, Tooltip("SequenceManagerPrefab‚ð“ü‚ê‚é")]
         SequenceManager _sequenceManagerPrefab;
-        void Start()
+        void Awake()
         {
             Instantiate(_sequenceManagerPrefab);
             SequenceManager.Instance.Initialize();
