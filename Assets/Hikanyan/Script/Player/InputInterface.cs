@@ -1,8 +1,10 @@
-/// <summary>
-/// Playerからブロックを押された時に呼び出されるインターフェイス
-/// </summary>
-interface InputInterface
+namespace Hikanyan.Core
 {
-    public void Press();
+    /// <summary>
+    /// Playerからブロックを押された時に呼び出されるインターフェイス
+    /// </summary>
+    interface InputInterface
+    {
+        public void Press();
     }
 }
