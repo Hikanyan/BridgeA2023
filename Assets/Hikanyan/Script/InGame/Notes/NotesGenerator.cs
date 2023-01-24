@@ -2,7 +2,10 @@ using Hikanyan.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Hikanyan.Gameplay
 {
@@ -76,10 +79,17 @@ namespace Hikanyan.Gameplay
 
         private void Start()
         {
+            //有効にされたらJsonファイルを読み込み、座標を計算して配置する
             //プレイヤー設定をロード
         }
-       　void StartLoad()
+        public async Task StartLoad(AssetReferenceT<TextAsset> jsonReference)
         {
+            string inputString = "";
+            //同期ロード
+            //JsonのリファレンスをTestAssetに変換
+            TextAsset data = await Addressables.LoadAssetAsync<TextAsset>(jsonReference).Task;
+            inputString = data.text;
+
 
         }
 
