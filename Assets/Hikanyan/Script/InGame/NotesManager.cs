@@ -29,8 +29,6 @@ namespace Hikanyan.Runner
         public int _missSoundNumber;
         [SerializeField, Tooltip("何もないときのときの効果音(CueSheetNumber)")]
         public int _noneTapSoundNumber;
-        //[SerializeField, Tooltip("パーフェクトのときの効果音(CueSheetNumber)")]
-        //public int _holdSoundNumber;
 
         [SerializeField]
         Text _judgeText;
@@ -43,9 +41,9 @@ namespace Hikanyan.Runner
         {
             BlockNotes = blockNoteslist;
             int notesNum = 0;
-            foreach(var blockNoteCount in BlockNotes)
+            foreach (var blockNoteCount in BlockNotes)
             {
-                foreach(var notesCount in blockNoteCount)
+                foreach (var notesCount in blockNoteCount)
                 {
                     notesNum++;
                 }
@@ -97,13 +95,13 @@ namespace Hikanyan.Runner
                 //ホールドの最初押したとき
                 if (notes.NotesType == NotesType.HoldNotes && !release)
                 {
-                   
+
                 }
             }
             else
             {
                 //空タップ
-                CRIAudioManager.Instance.CRIPlaySE(_noneTapSoundNumber,false);
+                CRIAudioManager.Instance.CRIPlaySE(_noneTapSoundNumber, false);
             }
         }
 
@@ -112,7 +110,40 @@ namespace Hikanyan.Runner
             if (BlockNotes[block].Count < 1) return;
             if (BlockNotes[block][0].NotesType == NotesType.NormalNotes) return;
             NotesJudge(BlockNotes[block][0], false);
+        }
+        public void BlockRelease(int block)
+        {
+            if (BlockNotes[block].Count <= 0) return;
+            if (BlockNotes[block][0].NotesType != NotesType.HeelNotes) return;
+            NotesJudge(BlockNotes[block][0], true);
+        }
 
+        public void BlockALLPress()
+        {
+            float fastTime = 1000.0f;
+            List<int> fastBlocks =new();
+            for(int i=0; i<4; i++)
+            {
+                float curTime = 1000;
+                
+                if (BlockNotes[i].Count < 1) continue;
+
+                if (fastTime == curTime)
+                {
+                    fastBlocks.Add(i);
+                }
+                else if (fastTime > curTime)
+                {
+                    fastTime = curTime;
+                    fastBlocks.Clear();
+                    fastBlocks.Add(i);
+                }
+            }
+            if (fastBlocks.Count < 1) return;
+            foreach (int i in fastBlocks)
+            {
+                NotesJudge(BlockNotes[i][0], false);
+            }
         }
         public void ApplyJudge(Judges judge, int block, bool showParticle = true)
         {
@@ -154,7 +185,6 @@ namespace Hikanyan.Runner
             {
                 //ParticleManager.Instance.JudgeEffect(judge, block);
 
-                AudioClip selectSound = null;
                 int selectSoundNumber = default;
                 switch (judge)
                 {
@@ -169,8 +199,6 @@ namespace Hikanyan.Runner
                         selectSoundNumber = _goodSoundNumber;
                         break;
                     case Judges.Bad:
-                        selectSoundNumber = _goodSoundNumber;
-                        break;
                     case Judges.Miss:
                         selectSoundNumber = _missSoundNumber;
                         break;
@@ -181,6 +209,20 @@ namespace Hikanyan.Runner
 
 
                 CRIAudioManager.Instance.CRIPlaySE(selectSoundNumber, false);
+            }
+        }
+
+        void AutoMode()
+        {
+            if (!_autoMode) return;
+            for (int i = 0; i < 4; i++)
+            {
+                if (BlockNotes[i].Count <1)return;
+                if (BlockNotes[i][0].NotesType != NotesType.DamageNotes)
+                {
+                    BlockPress(i);
+                }
+
             }
         }
     }
