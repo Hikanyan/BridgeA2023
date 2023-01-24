@@ -34,7 +34,7 @@ public class ScoreManager : SingletonBehaviour<ScoreManager>
 
     public JudgeScores JudgeScores;
 
-    private void Awake()
+    protected override void OnAwake()
     {
         _comboText.gameObject.SetActive(false);
     }

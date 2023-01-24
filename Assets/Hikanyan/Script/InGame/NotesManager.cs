@@ -117,10 +117,70 @@ namespace Hikanyan.Runner
         public void ApplyJudge(Judges judge, int block, bool showParticle = true)
         {
             ScoreManager.Instance.AddScore(judge);
-            if(Judges.PurePerfect == judge)
+
+            if (Judges.PurePerfect == judge)
             {
                 ScoreManager.Instance.Combo(true);
-                ScoreManager.Instance.JudgeScores;
+                ScoreManager.Instance.JudgeScores.PurePerfect++;
+            }
+            else if (Judges.Perfect == judge)
+            {
+                ScoreManager.Instance.Combo(true);
+                ScoreManager.Instance.JudgeScores.Perfect++;
+            }
+            else if (Judges.Great == judge)
+            {
+                ScoreManager.Instance.Combo(true);
+                ScoreManager.Instance.JudgeScores.Great++;
+            }
+            else if (Judges.Good == judge)
+            {
+                ScoreManager.Instance.Combo(false);
+                ScoreManager.Instance.JudgeScores.Good++;
+
+            }
+            else if (Judges.Bad == judge)
+            {
+                ScoreManager.Instance.Combo(false);
+                ScoreManager.Instance.JudgeScores.Bad++;
+            }
+            else if (Judges.Miss == judge)
+            {
+                ScoreManager.Instance.Combo(false);
+                ScoreManager.Instance.JudgeScores.Miss++;
+            }
+
+            if (showParticle)
+            {
+                //ParticleManager.Instance.JudgeEffect(judge, block);
+
+                AudioClip selectSound = null;
+                int selectSoundNumber = default;
+                switch (judge)
+                {
+                    case Judges.PurePerfect:
+                    case Judges.Perfect:
+                        selectSoundNumber = _perfectSoundNumber;
+                        break;
+                    case Judges.Great:
+                        selectSoundNumber = _greatSoundNumber;
+                        break;
+                    case Judges.Good:
+                        selectSoundNumber = _goodSoundNumber;
+                        break;
+                    case Judges.Bad:
+                        selectSoundNumber = _goodSoundNumber;
+                        break;
+                    case Judges.Miss:
+                        selectSoundNumber = _missSoundNumber;
+                        break;
+                    case Judges.None:
+                        break;
+
+                }
+
+
+                CRIAudioManager.Instance.CRIPlaySE(selectSoundNumber, false);
             }
         }
     }
