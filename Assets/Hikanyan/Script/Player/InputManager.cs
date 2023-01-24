@@ -1,5 +1,3 @@
-using Hikanyan.Core;
-using Hikanyan.Runner;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +21,7 @@ public class InputManager : SingletonBehaviour<InputManager>
             }
             else
             {
-                Debug.LogError("ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸ");
+                Debug.LogError("ƒuƒƒbƒN‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½");
             }
         }
 
@@ -32,42 +30,42 @@ public class InputManager : SingletonBehaviour<InputManager>
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.D))
-        { //DãŒæŠ¼ã•ã‚ŒãŸæ™‚å‘¼ã³å‡ºã™
+        { //D‚ª‰Ÿ‚³‚ê‚½ŒÄ‚Ño‚·
             BlockPress(0);
         }
 
         if (Input.GetKeyDown(KeyCode.F))
-        { //FãŒæŠ¼ã•ã‚ŒãŸæ™‚å‘¼ã³å‡ºã™
+        { //F‚ª‰Ÿ‚³‚ê‚½ŒÄ‚Ño‚·
             BlockPress(1);
         }
 
         if (Input.GetKeyDown(KeyCode.J))
-        { //JãŒæŠ¼ã•ã‚ŒãŸæ™‚å‘¼ã³å‡ºã™
+        { //J‚ª‰Ÿ‚³‚ê‚½ŒÄ‚Ño‚·
             BlockPress(2);
         }
 
         if (Input.GetKeyDown(KeyCode.K))
-        { //KãŒæŠ¼ã•ã‚ŒãŸæ™‚å‘¼ã³å‡ºã™
+        { //K‚ª‰Ÿ‚³‚ê‚½ŒÄ‚Ño‚·
             BlockPress(3);
         }
 
         if (Input.GetKeyUp(KeyCode.D))
-        { //DãŒæŠ¼ã•ã‚ŒãŸæ™‚å‘¼ã³å‡ºã™
+        { //D‚ª‰Ÿ‚³‚ê‚½ŒÄ‚Ño‚·
             BlockRelease(0);
         }
 
         if (Input.GetKeyUp(KeyCode.F))
-        { //FãŒæŠ¼ã•ã‚ŒãŸæ™‚å‘¼ã³å‡ºã™
+        { //F‚ª‰Ÿ‚³‚ê‚½ŒÄ‚Ño‚·
             BlockRelease(1);
         }
 
         if (Input.GetKeyUp(KeyCode.J))
-        { //JãŒæŠ¼ã•ã‚ŒãŸæ™‚å‘¼ã³å‡ºã™
+        { //J‚ª‰Ÿ‚³‚ê‚½ŒÄ‚Ño‚·
             BlockRelease(2);
         }
 
         if (Input.GetKeyUp(KeyCode.K))
-        { //KãŒæŠ¼ã•ã‚ŒãŸæ™‚å‘¼ã³å‡ºã™
+        { //K‚ª‰Ÿ‚³‚ê‚½ŒÄ‚Ño‚·
             BlockRelease(3);
         }
 
@@ -77,18 +75,23 @@ public class InputManager : SingletonBehaviour<InputManager>
         }
     }
 
-/// <summary>
-/// [TODO]
-/// ƒvƒŒƒCƒ„[‚Ì“ü—Í‚ğó‚¯æ‚éÀs‚·‚é
-/// </summary>
-public class InputManager
-{
     /// <summary>
-    /// ‰Ÿ‚³‚ê‚½ƒL[‚É‘Î‰‚·‚éƒuƒƒbƒN‚ÉƒCƒ“ƒ^[ƒtƒFƒCƒX‚ÅÀs
+    /// ‰Ÿ‚³‚ê‚½ƒL[‚É‘Î‰‚·‚éƒuƒƒbƒN‚ÉƒCƒ“ƒ^[ƒtƒF[ƒX‚ÅÀs
+    /// </summary>
+    /// <param name="block"></param>
+    public void BlockPress(int block)
+    {
+        Debug.Log(block);
+        _blocksIF[block].Press();
+        NotesManager.Instance.BlockPress(block);
+    }
+
+    /// <summary>
+    /// ‰Ÿ‚³‚ê‚½ƒL[‚É‘Î‰‚·‚éƒuƒƒbƒN‚ÉƒCƒ“ƒ^[ƒtƒF[ƒX‚ÅÀs
     /// </summary>
     /// <param name="block"></param>
     public void BlockRelease(int block)
     {
-        //NotesManager.Instance.Block
+        NotesManager.Instance.BlockRelease(block);
     }
 }
