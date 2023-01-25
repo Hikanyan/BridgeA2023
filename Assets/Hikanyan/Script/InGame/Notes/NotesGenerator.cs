@@ -90,6 +90,10 @@ namespace Hikanyan.Gameplay
             TextAsset data = await Addressables.LoadAssetAsync<TextAsset>(jsonReference).Task;
             inputString = data.text;
 
+            _inputJson = JsonUtility.FromJson<NotesData>(inputString);
+
+            int TapNotes = _inputJson.tapNotes.Length;
+            int HoldNotes = _inputJson.holdNotes.Length;
 
         }
 
