@@ -5,93 +5,95 @@ using System.Linq;
 using Hikanyan.Core;
 using Hikanyan.Runner;
 
-public class InputManager : SingletonBehaviour<InputManager>
+namespace Hikanyan.Gameplay
 {
-    [SerializeField] List<GameObject> _blockPrefabs = new();
-    private List<InputInterface> _blocksIF = new();
-
-    protected override void OnAwake()
+    public class InputManager : SingletonBehaviour<InputManager>
     {
-        foreach (GameObject block in _blockPrefabs)
+        [SerializeField] List<GameObject> _blockPrefabs = new();
+        private List<InputInterface> _blocksIF = new();
+
+        protected override void OnAwake()
         {
-            InputInterface IF = block.GetComponent<InputInterface>();
-            if (IF != null)
+            foreach (GameObject block in _blockPrefabs)
             {
-                _blocksIF.Add(IF);
+                InputInterface IF = block.GetComponent<InputInterface>();
+                if (IF != null)
+                {
+                    _blocksIF.Add(IF);
+                }
+                else
+                {
+                    Debug.LogError("ブロックのインターフェースの取得に失敗しました");
+                }
             }
-            else
-            {
-                Debug.LogError("ブロックのインターフェースの取得に失敗しました");
-            }
+
         }
 
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.D))
-        { //Dが押された時呼び出す
-            BlockPress(0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        { //Fが押された時呼び出す
-            BlockPress(1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.J))
-        { //Jが押された時呼び出す
-            BlockPress(2);
-        }
-
-        if (Input.GetKeyDown(KeyCode.K))
-        { //Kが押された時呼び出す
-            BlockPress(3);
-        }
-
-        if (Input.GetKeyUp(KeyCode.D))
-        { //Dが押された時呼び出す
-            BlockRelease(0);
-        }
-
-        if (Input.GetKeyUp(KeyCode.F))
-        { //Fが押された時呼び出す
-            BlockRelease(1);
-        }
-
-        if (Input.GetKeyUp(KeyCode.J))
-        { //Jが押された時呼び出す
-            BlockRelease(2);
-        }
-
-        if (Input.GetKeyUp(KeyCode.K))
-        { //Kが押された時呼び出す
-            BlockRelease(3);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        void Update()
         {
-            
+            if (Input.GetKeyDown(KeyCode.D))
+            { //Dが押された時呼び出す
+                BlockPress(0);
+            }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            { //Fが押された時呼び出す
+                BlockPress(1);
+            }
+
+            if (Input.GetKeyDown(KeyCode.J))
+            { //Jが押された時呼び出す
+                BlockPress(2);
+            }
+
+            if (Input.GetKeyDown(KeyCode.K))
+            { //Kが押された時呼び出す
+                BlockPress(3);
+            }
+
+            if (Input.GetKeyUp(KeyCode.D))
+            { //Dが押された時呼び出す
+                BlockRelease(0);
+            }
+
+            if (Input.GetKeyUp(KeyCode.F))
+            { //Fが押された時呼び出す
+                BlockRelease(1);
+            }
+
+            if (Input.GetKeyUp(KeyCode.J))
+            { //Jが押された時呼び出す
+                BlockRelease(2);
+            }
+
+            if (Input.GetKeyUp(KeyCode.K))
+            { //Kが押された時呼び出す
+                BlockRelease(3);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+
+            }
         }
-    }
 
-    /// <summary>
-    /// 押されたキーに対応するブロックにインターフェースで実行
-    /// </summary>
-    /// <param name="block"></param>
-    public void BlockPress(int block)
-    {
-        Debug.Log(block);
-        _blocksIF[block].Press();
-        NotesManager.Instance.BlockPress(block);
-    }
+        /// <summary>
+        /// 押されたキーに対応するブロックにインターフェースで実行
+        /// </summary>
+        /// <param name="block"></param>
+        public void BlockPress(int block)
+        {
+            _blocksIF[block].Press();
+            NotesManager.Instance.BlockPress(block);
+        }
 
-    /// <summary>
-    /// 押されたキーに対応するブロックにインターフェースで実行
-    /// </summary>
-    /// <param name="block"></param>
-    public void BlockRelease(int block)
-    {
-        NotesManager.Instance.BlockRelease(block);
+        /// <summary>
+        /// 押されたキーに対応するブロックにインターフェースで実行
+        /// </summary>
+        /// <param name="block"></param>
+        public void BlockRelease(int block)
+        {
+            NotesManager.Instance.BlockRelease(block);
+        }
     }
 }
