@@ -1,5 +1,5 @@
 using Hikanyan.Core;
-using Hikanyan.JudgeData;
+using Hikanyan.Gameplay;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -31,7 +31,7 @@ namespace Hikanyan.Runner
         public int _noneTapSoundNumber;
 
         [SerializeField]
-        Text _judgeText;
+        TextMeshProUGUI _judgeText;
         bool _autoMode;
         float _judgeOffset = 0.0f;
 

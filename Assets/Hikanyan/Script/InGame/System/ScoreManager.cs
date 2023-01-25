@@ -7,7 +7,7 @@ using Hikanyan.JudgeData;
 
 public class ScoreManager : SingletonBehaviour<ScoreManager>
 {
-    [SerializeField,Tooltip("ScoreText")]
+        [SerializeField, Tooltip("ScoreText")]
     TextMeshProUGUI _scoreText;
 
     [SerializeField, Tooltip("ResultRankText")]
@@ -141,4 +141,5 @@ public struct ResultDatas
     public float ClearPercent;
     public string MusicName;
     public string Rank;
+}
 }

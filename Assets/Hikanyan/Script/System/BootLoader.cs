@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Hikanyan.Gameplay
+namespace Hikanyan.Runner
 {
     public class BootLoader : MonoBehaviour
     {

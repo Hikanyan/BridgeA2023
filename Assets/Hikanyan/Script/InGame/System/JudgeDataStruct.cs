@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Hikanyan.JudgeData
+namespace Hikanyan.Core
 {
     public enum Judges
     {
