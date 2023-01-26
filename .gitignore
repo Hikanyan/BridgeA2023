@@ -58,8 +58,9 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-UserSettings/*
-ProjectSettings/*
-Packages/*
-Assets/TextMesh Pro/*
-Assets/CRIMW/*
+UserSettings/
+ProjectSettings/
+Packages/
+Assets/TextMesh Pro/
+Assets/CRIMW/
+
