@@ -95,6 +95,7 @@ namespace Hikanyan.Gameplay
             int TapNotes = _inputJson.tapNotes.Length;
             int HoldNotes = _inputJson.holdNotes.Length;
 
+            //[TODO]
         }
 
         void GetNotesData()

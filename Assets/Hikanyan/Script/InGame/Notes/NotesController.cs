@@ -14,10 +14,7 @@ namespace Hikanyan.Core
         {
             for(int i = 0; i < 3; i++)
             {
-                //foreach(Notes notes in NotesManager.Instance.BlockNotes)
-                //{
-                    
-                //}
+                //[TODO]
             }
         }
     }
