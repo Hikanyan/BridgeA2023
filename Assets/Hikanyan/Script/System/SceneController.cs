@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Hikanyan.Core
+namespace Hikanyan.Runner
 {
     public class SceneController
     {

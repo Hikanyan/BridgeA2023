@@ -8,8 +8,6 @@ namespace Hikanyan.Core
     public class SingletonBehaviour<T> : MonoBehaviour where T : MonoBehaviour
     {
         protected static T _instance;
-
-
         public static T Instance
         {
             get
@@ -24,7 +22,6 @@ namespace Hikanyan.Core
                         Debug.LogError($"{t}をアタッチしているGameObjectがありません");
                     }
                 }
-
                 return _instance;
             }
         }
@@ -36,7 +33,9 @@ namespace Hikanyan.Core
         }
 
 
-        //継承先でAwakeが必要な場合はこれを呼ぶ
+        /// <summary>
+        /// 継承先でAwakeが必要な場合はこれを呼ぶ
+        /// </summary>
         protected virtual void OnAwake() { }
 
         protected void ChackIns()
