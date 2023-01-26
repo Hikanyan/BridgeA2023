@@ -6,6 +6,6 @@ namespace Hikanyan.Core {
     {
         public int MusicNumber;
         public AssetReferenceT<TextAsset> MusicJsonReference;
-        public float MelayTime;
+        public float DelayTime;
     }
 }
