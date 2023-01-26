@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    
+    //AudioSource _step;
+    //public AudioClip _stepSe;
     // Start is called before the first frame update
+    private void Start()
+    {
+         //_step = GetComponent<AudioSource>();
+        
+    }
     void Update()
     {
         Movement();
@@ -20,21 +28,26 @@ public class PlayerMove : MonoBehaviour
         //ã‰ºˆÚ“®
         if (y == 1)
         {
-            transform.localPosition = new Vector2(0, 3);
+            transform.localPosition = new Vector2(0, 0.2311f);
+            Debug.Log(y);
         }
         else if (y == -1)
         {
-            transform.localPosition = new Vector2(0, 0);
+            transform.localPosition = new Vector2(0, -0.562f);
+            //_step.PlayOneShot(_stepSe);
+            Debug.Log(y);
         }
 
-        if (x == 1)
-        {
-            scale.x = 1;//‰E•ûŒü‚ÉŒü‚­
-        }
-        else if (x == -1)
-        {
-            scale.x = -1;//¶•ûŒü‚ÉŒü‚­
-        }
-        transform.localScale = scale;
+        //if (x == 1)
+        //{
+        //    scale.x = 1;//‰E•ûŒü‚ÉŒü‚­
+        //    Debug.Log(x);
+        //}
+        //else if (x == -1)
+        //{
+        //    scale.x = -1;//¶•ûŒü‚ÉŒü‚­
+        //    Debug.Log(x);
+        //}
+        //transform.localScale = scale;
     }
 }
