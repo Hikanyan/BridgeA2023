@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Hikanyan.Core;
+using Hikanyan.Runner;
+
 public class OnClickSceneMove : MonoBehaviour
 {
     [SerializeField, Tooltip("ˆÚ“®‚µ‚½‚¢ƒV[ƒ“‚Ì–¼‘O‚ğ“ü—Í")]
