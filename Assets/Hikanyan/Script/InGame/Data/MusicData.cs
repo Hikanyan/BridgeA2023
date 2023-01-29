@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace Hikanyan.Core {
-    public class MusicData
+    public class MusicData : MonoBehaviour
     {
         public int MusicNumber;
         public AssetReferenceT<TextAsset> MusicJsonReference;

@@ -43,7 +43,7 @@ namespace Hikanyan.Core
             if (!IsRunning) return;
 
             RealTime = Time.realtimeSinceStartup - _startTime - _cacheTime;
-            Debug.Log(RealTime);
+            //Debug.Log(RealTime);
         }
     }
 }

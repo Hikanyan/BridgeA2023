@@ -48,7 +48,7 @@ namespace Hikanyan.Runner
             
         }
 
-        void GameStart()
+        public void GameStart()
         {
             _isPlaying = true;
             if (_musicData != null)
@@ -57,11 +57,11 @@ namespace Hikanyan.Runner
                 _musicJsonReference = _musicData.MusicJsonReference;
                 _delayTime = _musicData.DelayTime;
             }
-            
+
             GameTimer.Instance.TimerStart();
             CRIAudioManager.Instance.CRIPlayBGM(_musicNumber, _delayTime);
         }
-        async void GameEnd()
+        public async void GameEnd()
         {
             GameTimer.Instance.TimerEnd();
             await Task.Delay(TimeSpan.FromSeconds(_waitTime));

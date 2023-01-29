@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Hikanyan.Core;
 using Hikanyan.Runner;
 
 public class OnClickSceneMove : MonoBehaviour

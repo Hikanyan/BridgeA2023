@@ -4,15 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 namespace Hikanyan.Gameplay
 {
     public class OnClickSceneMove : MonoBehaviour
     {
         [SerializeField,Tooltip("移動したいシーンの名前を入力")]
-        readonly string _sceneName;
-        [SerializeField,Tooltip("SceneControllerを参照")]
-        readonly SceneController _SceneController;
+        string _sceneName;
+        
         private void Awake()
         {
             GetComponent<Button>()?.onClick.AddListener(OnClickButton);
@@ -21,7 +20,7 @@ namespace Hikanyan.Gameplay
         void OnClickButton()
         {
             Debug.Log($"ボタンが押されました{_sceneName}に移動します。");
-            _SceneController.LoadNewScene(_sceneName);
+            SceneManager.LoadScene(_sceneName);
         }
 
     }
