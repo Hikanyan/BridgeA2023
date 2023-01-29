@@ -1,14 +1,11 @@
 using Hikanyan.Core;
-using Hikanyan.Runner;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using static TreeEditor.TreeEditorHelper;
 
 namespace Hikanyan.Gameplay
 {
@@ -19,11 +16,8 @@ namespace Hikanyan.Gameplay
     [Serializable]
     public class NotesData
     {
-        public string name;
-        public int maxBlock;
-        public int BPM;
-        public int offset;
-        public TapNotesInput[] notes;
+        public TapNotesInput[] tapNotes;
+        public HoldNotesInput[] holdNotes;
     }
     /// <summary>
     /// ƒ^ƒbƒvƒm[ƒc‚Ìƒf[ƒ^
@@ -32,9 +26,8 @@ namespace Hikanyan.Gameplay
     public class TapNotesInput
     {
         public int type;
-        public int num;
+        public float time;
         public int block;
-        public int LPB;
     }
     /// <summary>
     /// ƒz[ƒ‹ƒhƒm[ƒc‚Ìƒf[ƒ^
@@ -50,28 +43,34 @@ namespace Hikanyan.Gameplay
 
     public class NotesGenerator : MonoBehaviour
     {
-        /// <summary>ƒm[ƒc‚Ì‘” </summary>
-        public int NoteNum;
-        /// <summary>‰½”Ô–Ú‚ÌƒŒ[ƒ“‚Éƒm[ƒc‚ª—Ž‚¿‚Ä‚­‚é‚© </summary>
+        /// <summary>
+        /// ‚Ç‚ÌƒŒ[ƒ“‚Éƒm[ƒc‚ª—Ž‚¿‚Ä‚­‚é‚©
+        /// </summary>
         public List<int> LaneNum = new();
-        /// <summary>Notes‚ÌŽí—Þ </summary>
-        public List<int> NoteType = new();
-        /// <summary>ƒm[ƒc‚ª”»’èü‚Æd‚È‚éŽžŠÔ </summary>
-        public List<float> NotesTime = new();
-        /// <summary>ƒm[ƒc‚ÌƒIƒuƒWƒFƒNƒg</summary>
+        /// <summary>
+        /// Notes‚ÌŽí—Þ
+        /// </summary>
+        public List<int> HoldType = new();
+        /// <summary>
+        /// ƒm[ƒc‚ª”»’èü‚Éd‚È‚éŽžŠÔ
+        /// </summary>
+        public List<int> NotesTime = new();
+        /// <summary>
+        /// ƒm[ƒc‚ÌƒIƒuƒWƒFƒNƒg
+        /// </summary>
         public List<GameObject> NotesObject = new();
-
-
-        /// <summary>‹È–¼</summary>
-        public AssetReferenceT<TextAsset> _jsonMusic;//‹È–¼‚ð“ü‚ê‚éŠÖ”‚ðì¬‚·‚éB•Û‘¶‚µ‚½Json‚Ì–¼‘O‚ð“ü‚ê‚é
-        /// <summary>ƒVƒ“ƒOƒ‹ƒm[ƒc‚ÌƒIƒuƒWƒFƒNƒg</summary>
-        [SerializeField] private GameObject _noteObject;//ƒm[ƒc‚ÌƒvƒŒƒnƒu‚ð“ü‚ê‚é
-        /// <summary>ƒƒ“ƒOƒm[ƒc‚ÌƒIƒuƒWƒFƒNƒg</summary>
-        [SerializeField] private GameObject _noteLongObject;//ƒƒ“ƒOƒm[ƒc‚ÌƒvƒŒƒnƒu‚ð“ü‚ê‚é
-        /// <summary>ƒm[ƒc‚ÌƒXƒs[ƒh</summary>
-        [HideInInspector] public static float _notesSpeed = 5.0f;//ƒm[ƒc‚ÌƒXƒs[ƒh
-        /// <summary>ƒm[ƒc‚ª—¬‚ê‚Ä‚­‚é—P—\ </summary>
-        public float _notesOffset;//ƒm[ƒc‚ª—¬‚ê‚Ä‚­‚é’x‰„ŽžŠÔ(–¢ŽÀ‘•)
+        /// <summary>
+        /// ƒ^ƒbƒvƒm[ƒc‚ÌƒvƒŒƒnƒu‚ð“ü‚ê‚é
+        /// </summary>
+        [SerializeField] GameObject _tapNotesObject;
+        /// <summary>
+        /// ƒm[ƒc‚ÌƒXƒs[ƒh
+        /// </summary>
+        [SerializeField] float _notesSpeed;
+        /// <summary>
+        /// ƒm[ƒc‚Ì•\Ž¦‚³‚ê‚é‰œs‚«(—¼ƒTƒCƒh)
+        /// </summary>
+        [SerializeField] float _blockHeight;
 
 
         private NotesData _inputJson;
@@ -83,11 +82,6 @@ namespace Hikanyan.Gameplay
             //—LŒø‚É‚³‚ê‚½‚çJsonƒtƒ@ƒCƒ‹‚ð“Ç‚Ýž‚ÝAÀ•W‚ðŒvŽZ‚µ‚Ä”z’u‚·‚é
             //ƒvƒŒƒCƒ„[Ý’è‚ðƒ[ƒh
         }
-        IEnumerator Delay()
-        {
-            yield return new WaitForSeconds(_notesOffset);
-            StartLoad(_jsonMusic);
-        }
         public async Task StartLoad(AssetReferenceT<TextAsset> jsonReference)
         {
             string inputString = "";
@@ -98,26 +92,17 @@ namespace Hikanyan.Gameplay
 
             _inputJson = JsonUtility.FromJson<NotesData>(inputString);
 
-            Generat();
-            GameManager.Instance.GameStart();
+            int TapNotes = _inputJson.tapNotes.Length;
+            int HoldNotes = _inputJson.holdNotes.Length;
+
+            //[TODO]
         }
 
         void Generat()
         {
-            for (int i = 0; i < _inputJson.notes.Length; i++)//ƒm[ƒc‚ÌˆÊ’u‚ðˆêŒÂ‚¸‚Â”z’u‚µ‚Ä‚¢‚­
-            {
-                float syousetu = 60 / (_inputJson.BPM * (float)_inputJson.notes[i].LPB);                                      //ˆê¬ß‚Ì’·‚³
-                float beatSec = syousetu * (float)_inputJson.notes[i].LPB;                                                   //ƒm[ƒc‚Ì’·‚³
-                float time = (beatSec * _inputJson.notes[i].num / (float)_inputJson.notes[i].LPB) + _inputJson.offset + 0.01f; //ƒm[ƒc‚Ì~‚Á‚Ä‚­‚éŽžŠÔ
+            for (int i = 0; i < _inputJson.notes.Length; i++)//ãƒŽãƒ¼ãƒ„ã®ä½ç½®ã‚’ä¸€å€‹ãšã¤é…ç½®ã—ã¦ã„ã
+        {
 
-                NotesTime.Add(time);                    //NotesTimeƒŠƒXƒg‚É’Ç‰Á
-                LaneNum.Add(_inputJson.notes[i].block);  //LaneNumƒŠƒXƒg‚É’Ç‰Á
-                NoteType.Add(_inputJson.notes[i].type);  // NoteTypeƒŠƒXƒg‚É’Ç‰Á
-
-                float z = NotesTime[i] * _notesSpeed;     //ƒm[ƒc‚Ì¶¬‚³‚ê‚éˆÊ’u
-
-                NotesObject.Add(Instantiate(_noteObject, new Vector3(_inputJson.notes[i].block - 1.5f, 0.55f, z), Quaternion.identity));//ƒm[ƒc¶¬EƒCƒ“ƒXƒ^ƒ“ƒX‰»
-            }
         }
 
     }
