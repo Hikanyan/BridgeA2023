@@ -98,7 +98,9 @@ namespace Hikanyan.Gameplay
             //[TODO]
         }
 
-        void GetNotesData()
+        void Generat()
+        {
+            for (int i = 0; i < _inputJson.notes.Length; i++)//ノーツの位置を一個ずつ配置していく
         {
 
         }
